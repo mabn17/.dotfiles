@@ -1,0 +1,9 @@
+[submodule "tree-sitter/.config/tree-sitter/tree-sitter-lua"]
+	path = tree-sitter/.config/tree-sitter/tree-sitter-lua
+	url = git@github.com:Azganoth/tree-sitter-lua.git
+[submodule "roxtec"]
+	path = roxtec
+	url = git@github.com:mabn17/roxtec.git
+[submodule "personal"]
+	path = personal
+	url = git@github.com:mabn17/personal.git

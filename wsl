@@ -1,0 +1,35 @@
+#!/usr/bin/env zsh
+
+if [[ -z $XDG_CONFIG_HOME ]]; then
+    XDG_CONFIG_HOME="$HOME/.config"
+fi
+
+if [[ -z $XDG_CACHE_HOME ]]; then
+    XDG_CACHE_HOME="$HOME/.cache"
+fi
+
+if [[ -z $XDG_DATA_HOME ]]; then
+    XDG_DATA_HOME="$HOME/.local/share"
+fi
+
+if [[ -z $XDG_RUNTIME_DIR ]]; then
+    XDG_RUNTIME_DIR="/run/user/$UID"
+fi
+
+if [[ -z $XDG_DATA_DIRS ]]; then
+    XDG_DATA_DIRS="/usr/local/share"
+fi
+
+if [[ -z $XDG_CONFIG_DIRS ]]; then
+    XDG_CONFIG_DIRS="/etc/xdg"
+fi
+
+if [[ -z $STOW_FOLDERS ]]; then
+    STOW_FOLDERS="bin,nvim,personal,tmux,zsh"
+fi
+
+if [[ -z $DOTFILES ]]; then
+    DOTFILES=$HOME/.dotfiles
+fi
+
+STOW_FOLDERS=$STOW_FOLDERS DOTFILES=$DOTFILES $DOTFILES/install

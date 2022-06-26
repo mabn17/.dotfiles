@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+addToPathFront /home/$USER/n/bin
+addToPath /home/$USER/personal/lua-language-server/bin/Linux
+addToPath $HOME/.cargo/bin
+addToPath $HOME/.rustup
+addToPathFront /usr/lib/ccache

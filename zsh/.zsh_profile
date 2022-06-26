@@ -1,0 +1,68 @@
+export XDG_CONFIG_HOME=$HOME/.config
+VIM="nvim"
+
+PERSONAL=$XDG_CONFIG_HOME/personal
+source $PERSONAL/env
+for i in `find -L $PERSONAL`; do
+    source $i
+done
+
+source /usr/share/doc/fzf/examples/key-bindings.zsh
+source /usr/share/doc/fzf/examples/completion.zsh
+
+export CC="clang-12"
+export CXX="clang++-12"
+export GIT_EDITOR=$VIM
+export EOSIO_INSTALL_DIR=$HOME/personal/eos
+export DOTFILES=$HOME/.dotfiles
+
+export PYTHON_CONFIGURE_OPTS="--enable-shared"
+addToPathFront $HOME/.pyenv/bin
+eval "$(pyenv init --path)"
+eval "$(pyenv virtualenv-init -)"   
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+
+export GOENV_ROOT="$HOME/.goenv"
+addToPathFront $GOENV_ROOT/bin
+eval "$(goenv init -)"
+addToPathFront $GOROOT/bin
+addToPath $GOPATH/bin
+export GO111MODULE=on
+
+bindkey -s ^f "tmux-sessionizer\n"
+
+catr() {
+    tail -n "+$1" $3 | head -n "$(($2 - $1 + 1))"
+}
+
+validateYaml() {
+    python -c 'import yaml,sys;yaml.safe_load(sys.stdin)' < $1
+}
+
+goWork() {
+    cp ~/.npm_work_rc ~/.npmrc
+}
+
+removeThrottle() {
+    sudo tc qdisc del dev wlp59s0 root
+}
+
+cat1Line() {
+    cat $1 | tr -d "\n"
+}
+
+ioloop() {
+    FIFO=$(mktemp -u /tmp/ioloop_$$_XXXXXX ) &&
+    trap "rm -f $FIFO" EXIT &&
+    mkfifo $FIFO &&
+    ( : <$FIFO & ) &&
+    exec >$FIFO <$FIFO
+}
+
+eslintify() {
+    cat $1 > /tmp/file_to_eslint
+    npx eslint
+}
